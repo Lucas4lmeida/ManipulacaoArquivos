@@ -6,9 +6,9 @@ public class GerenciadorDisciplinas {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.println("\nMenu Principal:");
-            System.out.println("1. Criar arquivo de respostas dos alunos");
-            System.out.println("2. Gerar resultado da disciplina");
-            System.out.println("3. Sair");
+            System.out.println("1. - Criar arquivo de respostas dos alunos");
+            System.out.println("2. - Gerar resultados da disciplina");
+            System.out.println("3. - Sair");
             System.out.print("Escolha uma opção: ");
             String opcao = scanner.nextLine();
 
@@ -60,7 +60,7 @@ public class GerenciadorDisciplinas {
 
         System.out.print("Digite o caminho do arquivo de gabarito: ");
         String caminhoGabarito = scanner.nextLine().trim();
-        File arquivoGabarito = new File(caminhoGabarito);
+        File arquivoGabarito = new File(caminhoGabarito + ".txt");
         if (!arquivoGabarito.exists()) {
             System.out.println("Arquivo de gabarito " + caminhoGabarito + " não encontrado.");
             return;
