@@ -32,7 +32,7 @@ public class GerenciadorDisciplinas {
     private static void criarArquivoRespostas(Scanner scanner) {
         System.out.print("Digite o nome da disciplina: ");
         String nomeDisciplina = scanner.nextLine().trim();
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(nomeDisciplina + ".txt"))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("Disciplinas/" + nomeDisciplina + ".txt"))) {
             while (true) {
                 System.out.print("Digite as respostas do aluno (V ou F) e o nome do aluno, separados por tab (ou 'sair' para terminar): ");
                 String linha = scanner.nextLine().trim();
@@ -52,7 +52,7 @@ public class GerenciadorDisciplinas {
     private static void gerarResultadoDisciplina(Scanner scanner) {
         System.out.print("Digite o nome da disciplina: ");
         String nomeDisciplina = scanner.nextLine().trim();
-        File arquivoDisciplina = new File(nomeDisciplina + ".txt");
+        File arquivoDisciplina = new File("Disciplinas/" + nomeDisciplina + ".txt");
         if (!arquivoDisciplina.exists()) {
             System.out.println("Arquivo " + nomeDisciplina + ".txt não encontrado.");
             return;
@@ -60,7 +60,7 @@ public class GerenciadorDisciplinas {
 
         System.out.print("Digite o caminho do arquivo de gabarito: ");
         String caminhoGabarito = scanner.nextLine().trim();
-        File arquivoGabarito = new File(caminhoGabarito + ".txt");
+        File arquivoGabarito = new File("Gabaritos/" + caminhoGabarito + ".txt");
         if (!arquivoGabarito.exists()) {
             System.out.println("Arquivo de gabarito " + caminhoGabarito + " não encontrado.");
             return;
@@ -92,7 +92,7 @@ public class GerenciadorDisciplinas {
 
             // Ordena por nome
             alunos.sort(Comparator.comparing(Aluno::getNome));
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(nomeDisciplina + "_resultado_alfabetico.txt"))) {
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter("Resultados/Alfabetico/" + nomeDisciplina + ".txt"))) {
                 for (Aluno aluno : alunos) {
                     writer.write(aluno.getNome() + "\t" + aluno.getPontos());
                     writer.newLine();
@@ -102,8 +102,8 @@ public class GerenciadorDisciplinas {
             // Ordena por pontuação
             alunos.sort(Comparator.comparing(Aluno::getPontos).reversed());
             double totalPontos = alunos.stream().mapToInt(Aluno::getPontos).sum();
-            double media = alunos.size() > 0 ? totalPontos / alunos.size() : 0;
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(nomeDisciplina + "_resultado_pontuacao.txt"))) {
+            double media = !alunos.isEmpty() ? totalPontos / alunos.size() : 0;
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter("Resultados/Pontuacao/" + nomeDisciplina + ".txt"))) {
                 for (Aluno aluno : alunos) {
                     writer.write(aluno.getNome() + "\t" + aluno.getPontos());
                     writer.newLine();
@@ -122,10 +122,10 @@ public class GerenciadorDisciplinas {
     // Função para visualizar o resultado na tela
     private static void visualizarResultado(String nomeDisciplina) {
         System.out.println("\nResultados ordenados por nome:");
-        exibirArquivo(nomeDisciplina + "_resultado_alfabetico.txt");
+        exibirArquivo("Resultados/Alfabetico/" + nomeDisciplina + ".txt");
 
         System.out.println("\nResultados ordenados por pontuação:");
-        exibirArquivo(nomeDisciplina + "_resultado_pontuacao.txt");
+        exibirArquivo("Resultados/Pontuacao/" + nomeDisciplina + ".txt");
     }
 
     // Função para exibir o conteúdo de um arquivo
