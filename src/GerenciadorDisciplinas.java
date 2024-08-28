@@ -28,7 +28,6 @@ public class GerenciadorDisciplinas {
         }
     }
 
-    // Função para criar o arquivo de respostas dos alunos
     private static void criarArquivoRespostas(Scanner scanner) {
         System.out.print("Digite o nome da disciplina: ");
         String nomeDisciplina = scanner.nextLine().trim();
@@ -48,7 +47,6 @@ public class GerenciadorDisciplinas {
         }
     }
 
-    // Função para gerar o resultado da disciplina
     private static void gerarResultadoDisciplina(Scanner scanner) {
         System.out.print("Digite o nome da disciplina: ");
         String nomeDisciplina = scanner.nextLine().trim();
@@ -90,7 +88,6 @@ public class GerenciadorDisciplinas {
                 }
             }
 
-            // Ordena por nome
             alunos.sort(Comparator.comparing(Aluno::getNome));
             try (BufferedWriter writer = new BufferedWriter(new FileWriter("Resultados/Alfabetico/" + nomeDisciplina + ".txt"))) {
                 for (Aluno aluno : alunos) {
@@ -99,7 +96,6 @@ public class GerenciadorDisciplinas {
                 }
             }
 
-            // Ordena por pontuação
             alunos.sort(Comparator.comparing(Aluno::getPontos).reversed());
             double totalPontos = alunos.stream().mapToInt(Aluno::getPontos).sum();
             double media = !alunos.isEmpty() ? totalPontos / alunos.size() : 0;
@@ -119,7 +115,6 @@ public class GerenciadorDisciplinas {
         }
     }
 
-    // Função para visualizar o resultado na tela
     private static void visualizarResultado(String nomeDisciplina) {
         System.out.println("\nResultados ordenados por nome:");
         exibirArquivo("Resultados/Alfabetico/" + nomeDisciplina + ".txt");
@@ -128,7 +123,6 @@ public class GerenciadorDisciplinas {
         exibirArquivo("Resultados/Pontuacao/" + nomeDisciplina + ".txt");
     }
 
-    // Função para exibir o conteúdo de um arquivo
     private static void exibirArquivo(String nomeArquivo) {
         try (BufferedReader reader = new BufferedReader(new FileReader(nomeArquivo))) {
             String linha;
